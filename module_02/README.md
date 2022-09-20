@@ -3,11 +3,21 @@
 ## Overview
 ![](../ressources/assets/module_02-0.png)
 
+In this module, the goal is to deploy an EC2 inside the public subnets, in manner to be internet facing and accessible from your computers.
+
+You will expose the EC2 using the public IP association from AWS.
 
 ## Lab
 
 ## First EC2
 ### Create a key pair
+
+You first need to create a key pair, to connect with ssh on the server.
+
+**PRO TIP:** do not loose this key
+
+<details>
+<summary>SOLUTION</summary>
 
 * Go to AWS EC2 service
 * Go to key pair tab
@@ -18,9 +28,25 @@
   * add mandatory tags
 * Create key pair
 
+</details>
+
 **Save the file**: 
 
 This is a very important step, as if you loose your key, you won't be able to retrieve it.
+
+### Launch an EC2 
+
+Now you can launch an EC2 inside one of your public subnet.
+
+Inputs:
+* AMI: amazon linux 2
+* type: t2.micro
+* public IP assigned
+* use your key pair
+* use default SG
+
+<details>
+<summary>SOLUTION</summary>
 
 * Go to instances tab
 * Click launch instance
@@ -37,6 +63,7 @@ This is a very important step, as if you loose your key, you won't be able to re
       * choose default
 * Launch instance
 
+</details>
 
 You have now a public EC2 server.
 We will try to connect with ssh on it.
@@ -55,6 +82,13 @@ It's normal, we did not authorise your IP to connect to the instance.
 Let's do it.
 
 ### Create and apply a security group
+
+You need to create a new security group for your VPC, that you will apply to your EC2.
+
+This security group needs to authorise your computer's IP to do ssh.
+
+<details>
+<summary>SOLUTION</summary>
 
 * Go to AWS EC2 service
 * Go to security group tab
@@ -75,6 +109,8 @@ Let's do it.
   * Networking
     * Change security Groups
     * Select your SG
+
+</details>
 
 Let's try again the ssh:
 ```sh
@@ -128,7 +164,10 @@ Let's do it.
 
 ### Update security group
 
-We will know allow port 80 from your IP on the server.
+You now need to update the SG attached to your EC2 to authorise your computer IP to do HTTP (port 80)
+
+<details>
+<summary>SOLUTION</summary>
 
 * Go to AWS EC2 service
 * Open security group tab
@@ -138,6 +177,8 @@ We will know allow port 80 from your IP on the server.
     * Type: HTTP
     * Source: My IP
   * Save
+
+</details>
 
 Go back to your website.
 It works !
@@ -248,6 +289,10 @@ Setup your wordpress, and share a post !
 Let's now create an AMI from this EC2 server, to capture it's state and reuse it after.
 Doing this, we won't have to reinstall and reconfigure our website.
 
+
+<details>
+<summary>SOLUTION</summary>
+
 * Go to AWS EC2 service
 * Go to instance tab
 * Select your EC2
@@ -258,7 +303,15 @@ Doing this, we won't have to reinstall and reconfigure our website.
       * image description: a description
 
 ### Test your AMI
-Let's go check the status of your AMI:
+Let's go check the status of your AMI.
+Once it is ready, launch a new EC2 based on this AMI, with same inputs as previously.
+
+</details>
+
+
+<details>
+<summary>SOLUTION</summary>
+
 * Go to AWS EC2 service
 * Go to AMIs tab
 * Find you AMI and wait for it to be ready
@@ -266,6 +319,8 @@ Let's go check the status of your AMI:
   * Launch
   * Use same parameters as the first AMI (t2.micro, public, etc ..)
   * Launch
+
+</details>
 
 go to the website : http://<new_public_ip>
 
