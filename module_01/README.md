@@ -3,11 +3,43 @@
 ## Overview
 ![](../ressources/assets/module_01-0.png)
 
+The main goal of this module is to create a 3 tier VPC.
+The three tier are :
+* Public
+* Private 
+* Data
+
+### Public subnets
+
+Public subnets are directly routed to internet, and ressources can be internet facing, with public IPs associated.
+
+Usually, we find in public subnets front ends.
+
+### Private subnets
+
+Private subnets have connectivity to internet, but cannot be directly accessed from internet. 
+
+Usually, we find in private subnets back ends.
+
+### Data subnets
+
+Data subnets are totally isolated from internet, no in no out.
+
+Usually, we find in data subnets databases, caches ...
+
+
 
 ## Lab
 
 ## Create VPC
 ![](../ressources/assets/module_01-1.png)
+
+You first need to create VPC
+CIDR block example : 10.0.0.0/16
+
+<details>
+<summary>SOLUTION</summary>
+
 * Go to AWS VPC service
 * Go to VPC tab
 * Create a new VPC:
@@ -15,29 +47,37 @@
   * IPv4 CIDR Block = 10.0.0.0/16
   * Tags : respect tagging policy
 
+</details> 
+
+
 ## Create Subnets
 ![](../ressources/assets/module_01-2.png)
-We will create here 6 subnets:
+
+We then need to create the 6 different subnets
+
 * 2 public
 * 2 private
 * 2 data
 
-For CIDR blocks, you'll have to create 6 block of /25 IPs.
+For CIDR blocks, you can create 6 block of /25 IPs.
 You can find a CIDR block calculator : https://cidr.xyz/
 
 example of value: 10.0.1.0/25
 
 **REMINDER: NO IP OVERLAPPING IS ALLOWED**
 
+**PRO TIP** : You can create all subnets at once, with the "Add new subnet" bouton.
+
+<details>
+<summary>SOLUTION</summary>
+
 * Go to VPC service
 * Go to subnets tab
 * Create new subnet
 * Select the good VPC previously created
 
-You can create all subnets at once, with the "Add new subnet" bouton.
-
 ### Public subnets
-Repeat twice:
+Repeat twice
 
 * subnet name: name of the public subnet (ex: my-subnet-public-1 / my-subnet-public-2)
 * choose a random AZ (**MUST BE DIFFERENT FOR EACH SUBNET OF A KIND**)
@@ -60,10 +100,19 @@ Repeat twice:
 * IPv4 CIDR block: fill in
 * add mandatory tags
 
+</details> 
+
 Now we have a fonctionnal private network zone. We will focus now on internet connectivity and separating the different subnets. 
 
 ## Create internet gateway
 ![](../ressources/assets/module_01-3.png)
+
+To access internet, the mandatory ressource is the internet gateway.
+
+You will have to create one, and associate it to your VPC.
+
+<details>
+<summary>SOLUTION</summary>
 
 * Go to VPC service
 * Go to internet gateway tab
@@ -76,12 +125,23 @@ Now we have a fonctionnal private network zone. We will focus now on internet co
   * Select your VPC
   * Attach
 
+</details> 
+
 
 Now you have internet connectivity for your VPC, all managed by AWS.
 
 
 ## Create NAT gateway
 ![](../ressources/assets/module_01-4.png)
+
+A NAT gaetway is mandatory to give access to internet for the private subnet.
+It has to be exposed on internet (internet-facing), in manner to translate packages from private subnet to whatever is the public target.
+It will handle the connection
+
+[Documentation on NAT Gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html)
+
+<details>
+<summary>SOLUTION</summary>
 
 * Go to VPC service
 * Go to NAT gateways tab
@@ -91,6 +151,7 @@ Now you have internet connectivity for your VPC, all managed by AWS.
   * click "allocate elastic ip"
   * add mandatory tags
 
+</details>
 
 ## Route tables
 ![](../ressources/assets/module_01-5.png)
@@ -99,6 +160,11 @@ Now that we have connectivity set, we have to customize our route table in manne
 * public : Directly connected to internet and can be exposed
 * private : Can reach internet but cannot be exposed
 * data : no internet connectivity at all
+
+**PRO TIP:** the route to internet is the 0.0.0.0/0 (it actually means all the other routes)
+
+<details>
+<summary>SOLUTION</summary>
 
 ### Public route table
 #### Create route table
@@ -168,6 +234,7 @@ Now that we have connectivity set, we have to customize our route table in manne
 * Select your two data subnets
 * Save
 
+</details>
 
 ## Conclusion
 We have now a fully operationnal VPC, with distinct subnets that we will use in the next module.
@@ -183,6 +250,11 @@ It can create all the previous resource as code, in once.
 
 ### Create a cloudformation stack for VPC
 
+Use the cloudformation template file to create the VPC 3 tier stack 
+
+<details>
+<summary>SOLUTION</summary>
+
 * Go to AWS Cloudformation service
 * Create stack with new ressources
 * Select "template is ready"
@@ -194,6 +266,8 @@ It can create all the previous resource as code, in once.
 * put mandatory tags
 * Click next
 * Click create stack
+
+</details>
 
 Have a look on all the stack tabs while creating.
 At the end, look at the Resources tab to see what has been created.

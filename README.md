@@ -34,5 +34,7 @@ In this lab, the mandatory tagging policy is :
 * **Owner** : the name of the owner
 * **Project** : the name of the project
 
+Always try to give a comprehensive name for ressources, so you can easily find them when needed.
+
 ## How to
 
