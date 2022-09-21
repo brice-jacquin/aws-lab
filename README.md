@@ -38,3 +38,9 @@ Always try to give a comprehensive name for ressources, so you can easily find t
 
 ## How to
 
+## At the end
+
+Please think about deleting all your ressources when done.
+This is important to not exceed the allocated budget.
+
+Go reverse on the module, and delete one by one all ressources created before leaving.

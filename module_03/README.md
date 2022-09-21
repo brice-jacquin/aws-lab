@@ -3,14 +3,21 @@
 ## Overview
 ![](../ressources/assets/module_03-0.png)
 
+In this module, we will implement a well architected infrastructure for our blog, step by step.
 
+The main goal is to have application load balancer for the internet facing ressources, that load balance request on two back end servers. 
 ## Lab
 
 ## Create a private EC2 instance
 
-In this part, we will create one EC2 inside the private subnets.
 
 ![](../ressources/assets/module_03-1.png)
+
+In this part, we will create one EC2 inside the private subnets.
+Take same inputs as module_02, but choose a private subnet for the subnet section.
+
+<details>
+<summary>SOLUTION</summary>
 
 * Go to AWS EC2 service
 * Go to AMI tab
@@ -29,6 +36,7 @@ In this part, we will create one EC2 inside the private subnets.
     * select existing security group
       * choose previously created
 * Launch instance
+</details>
 
 If you have a good understanding on the network in place, you'll understand that you will not be able to connect directly to the server, because it's in the private subnet.
 
@@ -39,6 +47,11 @@ No worries, AWS has a workaround for us.
 
 In this part, we will create an IAM instance profile.
 The instance proile can be assign to an EC2, giving it rights on AWS APIs, without storing any credentials on the server.
+
+The policy to associate to the instance profile / IAM role is : AmazonSSMManagedInstanceCore
+
+<details>
+<summary>SOLUTION</summary>
 
 Create role: 
 * Go to AWS IAM service
@@ -65,10 +78,18 @@ Assign role:
 * click instance state
   * reboot
 
+</details>
+
 ## Use AWS SSM to connect on the server
 
 AWS SSM is an AWS service that has a lot of usage. 
 One of them is administration of EC2 server, and for example connection ssh on it throught the browser.
+
+Use AWS SSM session manager to connect to your instance.
+
+
+<details>
+<summary>SOLUTION</summary>
 
 * Go to AWS EC2 service
 * Go to instance tab
@@ -76,6 +97,7 @@ One of them is administration of EC2 server, and for example connection ssh on i
 * click connect
 * chose "Session Manager" tab
 * click connect
+</details>
 
 We can now connect on the server without using SSH and being exposed online.
 AWS handles the security for us, and we use IAM to allow or not people to connect with AWS SSM on servers. 
@@ -86,6 +108,9 @@ AWS handles the security for us, and we use IAM to allow or not people to connec
 We will now deploy another wordpress, in a second AZ.
 This is to have some High Availabilty (HA) on our website.
 
+<details>
+<summary>SOLUTION</summary>
+
 * Go to AWS EC2 service
 * Go to instance tab
 * Select your server
@@ -94,6 +119,7 @@ This is to have some High Availabilty (HA) on our website.
   * Launch more like this
     * key pair: proceed without one ( we have SSM now ! )
     * subnet: choose another private subnet
+</details>
 
 We will now change the index of the html page only for the second server.
 
@@ -112,7 +138,18 @@ curl localhost
 
 ## Deploy an Aplication Load Balancer (ALB)
 
+In this part, we will deploy a multi AZ application load balancer, which is internet facing.
+
+
+
 ### Create a dedicated SG
+
+First, we need to create the security group that we will be associated to the ALB.
+
+Inputs : authorise HTTP ( port 80 ) on the SG.
+
+<details>
+<summary>SOLUTION</summary>
 
 * Go to AWS EC2 service
 * Go to security group tab
@@ -127,7 +164,18 @@ curl localhost
   * add mandatory tags
 * Create SG
 
+</details>
+
 ### Create a target group
+
+Then, we will have to create a target group.
+
+The target group is used by the load balancer to know where to redirect HTTP calls.
+
+Inputs: the two ec2 servers has to be inside the target group.
+
+<details>
+<summary>SOLUTION</summary>
 
 * Go to AWS EC2 service
 * Go to target group tab
@@ -143,12 +191,24 @@ curl localhost
   * click include as pending
   * create target group
 
+</details>
+
 ### Create the ALB
 
-We will deploy an ALB, which will be internet facing.
-ALBs are fully managed by AWS.
-
 ![](../ressources/assets/module_03-3.png)
+
+Finally, we can deploy the ALB. 
+It must be :
+
+* multi AZ
+* in the public subnets
+* internet facing
+* redirecting http calls to the target group
+* Authorising http calls from your computer
+
+
+<details>
+<summary>SOLUTION</summary>
 
 * Go to AWS EC2 service
 * Go to load balancer tab
@@ -169,6 +229,8 @@ ALBs are fully managed by AWS.
     * target group : the one previously created
 * Create load balancer
 
+</details>
+
 
 Once load balancer is provisionned, find its DNS name.
 You see that AWS provides a generical DNS that is public, and hosted by AWS.
@@ -184,6 +246,17 @@ Indeed, the security group on the EC2 is not allowing any traffic coming from th
 Let's change that.
 
 ### update EC2 SG
+
+We need to update the SG associated to the EC2 to authorise only the http incoming from the ALB.
+
+Inputs:
+* You can delete previous rules
+* The source of a rule can be another SG (use the SG id)
+
+
+<details>
+<summary>SOLUTION</summary>
+
 * Go to AWS EC2 service
 * Open security group tab
 * select your security group for EC2
@@ -195,6 +268,9 @@ Let's change that.
       
 As you can see here, we can create SG rules, with the source being the ID of another security group.
 This is awsome feature for us.
+
+</details>
+
 
 ### test your website
 
