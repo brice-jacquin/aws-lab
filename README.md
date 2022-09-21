@@ -2,6 +2,11 @@
 
 ## Overview
 
+This lab is made to apprehend AWS basic concepts and learn to use the AWS console.
+
+We will see a simple example of how to evolve a unique server architecture to a 3 tier web app.
+
+
 ## General guidelines
 
 ## Region
