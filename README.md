@@ -19,6 +19,16 @@ In this lab, we will only use the ireland region:
 
 For all non specified parameters when creating ressources with console / cli / sdk, please leave default ones.
 
+## Security groups
+
+When working ith security groups on AWS, we usually have the following politic:
+
+* Strict restriction on inbound rules
+* No restriction on outbound rules
+
+That means that we always apply a full authorisation on the outbounds rules of every security group.
+Please keep that in mind for the lab.
+
 ## When AFK for a long time
 
 Always think about stopping your ressources if you don't use them for a long time (lunch break for example).
