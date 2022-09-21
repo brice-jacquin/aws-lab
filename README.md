@@ -2,6 +2,11 @@
 
 ## Overview
 
+This lab is made to apprehend AWS basic concepts and learn to use the AWS console.
+
+We will see a simple example of how to evolve a unique server architecture to a 3 tier web app.
+
+
 ## General guidelines
 
 ## Region
@@ -38,3 +43,9 @@ Always try to give a comprehensive name for ressources, so you can easily find t
 
 ## How to
 
+## At the end
+
+Please think about deleting all your ressources when done.
+This is important to not exceed the allocated budget.
+
+Go reverse on the module, and delete one by one all ressources created before leaving.

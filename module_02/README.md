@@ -235,13 +235,21 @@ sudo systemctl enable mariadb
 sudo mysql_secure_installation
 ```
 
+```
 Enter current password for root: Press return for none
+
 Change Root Password: Y
+
 New Password: Enter your new password
+
 Remove anonymous user: Y
+
 Disallow root login remotely: Y
+
 Remove test database and access to it: Y
+
 Reload privilege tables now: Y
+```
 
 Finally, install & configure wordpress:
 * Go back to the server (still in root)
@@ -262,13 +270,16 @@ mv wordpress blog
 cd blog
 mv wp-config-sample.php wp-config.php
 vi wp-config.php
-
+```
+```sh
 # Override those parameters
 DB_NAME='blog'
 DB_USER='root'
 DB_PASSWORD='changeme'
 DB_HOST='localhost'
+```
 
+```sh
 # Create blog database on local mysql
 mysql -p
 
@@ -302,11 +313,11 @@ Doing this, we won't have to reinstall and reconfigure our website.
       * image name: the AMI name (ex: my-ami)
       * image description: a description
 
+</details>
+
 ### Test your AMI
 Let's go check the status of your AMI.
 Once it is ready, launch a new EC2 based on this AMI, with same inputs as previously.
-
-</details>
 
 
 <details>
