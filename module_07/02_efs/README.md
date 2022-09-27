@@ -50,7 +50,7 @@ Create an standard EFS.
 
 ### 2.3. Mount the EFS
 
-You have created a new EFS, now you need to mount it on both instances. The local folder might be /efs.
+You have created a new EFS, now you need to mount it on both instances. The local folder might be **/efs**.
 
 <details>
 <summary>SOLUTION</summary>

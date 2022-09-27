@@ -15,7 +15,7 @@ Lab objective:
 ### 1.1. Create 2 Instances with an extra volume
 
 The first step is to create 2 new instances. We have several requirements for these servers : 
-  * The 2 instances must be your 2 subnets 
+  * The 2 instances must be in your 2 subnets 
   * We need the root volume to be a GP3 SSD volume (default IOPS and Throughput)
   * **One** of the 2 instances must have a ST1 HDD of the minimal size possible. 
   * You will connect via SSM.  
@@ -51,7 +51,7 @@ The first step is to create 2 new instances. We have several requirements for th
 
 ### 1.2. Snapshot your volume
 
-You have an instance with 2 volumes : on root volume (SSD) and one data volume (HDD). 
+You have an instance with 2 volumes : one root volume (SSD) and one data volume (HDD). 
 Create a XFS (EXT4, or other) partition of the data volume (use command *mkfs.xfs*)
 Mount the data volume in the instance system on **/data** and write an empty file in it. 
 Then save this volume by creating a **snapshot** of it. 
@@ -85,15 +85,15 @@ mount /dev/xvdb /data
 echo "test" > /data/test_file.txt
 
 ```
-* Come bak to AWS console, navigate to Instances, select your instance and click on the **Volume id** under the **Storage** Tab
+* Come back to AWS console, navigate to Instances, select your instance and click on the **Volume id** under the **Storage** Tab
 * Select the volume and under Action select **Create snapshot**
 * Give it a description and then Create snapshot
-* You can watch its creation with the Snapshot menu
+* You can watch its creation within the Snapshot menu
 </details>
 
 ### 1.3. Restore your snapshot
 
-Now that you have saved data with a Snapshot, restore it in your 2nd instance but as a **SSD (GP3), not HDD**. 
+Now that you have saved some data with a Snapshot, restore it in your 2nd instance but as a **SSD (GP3), not HDD**. 
 Optional : Encrypt this volume with a default KMS Key. 
 
 ![](../../ressources/assets/module07/module_07-EBS-0.png)
@@ -109,7 +109,7 @@ Optional : Encrypt this volume with a default KMS Key.
   * Select the default aws/ebs key
 * Create volume
 * Navigate to the Volumes menu
-* Select your newly create volume and under Action, select Attach volume
+* Select your newly created volume and under Action, select Attach volume
 * Select the 2nd instance
 * Name the device /dev/sdb
 * Navigate to the Instances menu and select your 2nd instance
