@@ -8,6 +8,8 @@ Create 2 new private subnets in your existing VPC.
 
 ## 1. Lab EBS
 
+Lab objective:
+
 ![](../../ressources/assets/module07/module_07-EBS-0.png)
 
 ### 1.1. Create 2 Instances with an extra volume

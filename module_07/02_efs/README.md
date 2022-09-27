@@ -8,6 +8,8 @@ You have done the 01_ebs folder
 
 You have seen you can use EBS to store data. Now you need a share space to deposit files, with EFS.
 
+Lab objective: 
+
 ![](../../ressources/assets/module07/module_07-EFS.png)
 
 ### 2.1. Create a SG for NFS
