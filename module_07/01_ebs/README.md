@@ -2,7 +2,8 @@
 
 ## Prerequisites
 
-Create 2 new private subnets in your existing VPC. 
+Create new VPC in 10.0.0.0/16 with an internet gateway.
+Create 2 new public subnets in your existing VPC.
 
 ![](../../ressources/assets/module07/module_07-0.png)
 
