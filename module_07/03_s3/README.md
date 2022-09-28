@@ -25,6 +25,9 @@ Activate the versioning and encrypt it with the S3 Key.
 
 Create a file on your desktop and upload it multiple times. Modify your file between each upload. Check the different versions and restore one of them as current. 
 
+<details>
+<summary>SOLUTION</summary>
+
 * Create a text file on your laptop. 
 * Click on your bucket
 * Click on Upload and Add files. Select your text file. Upload
@@ -35,6 +38,9 @@ Create a file on your desktop and upload it multiple times. Modify your file bet
   * Download the version of your choice. You retrieve the version you uploaded earlier. 
   * Select the *current version* of Delete it.
   * Go back to the version tab and check the current version of your object.
+
+
+</details>
 
 ### 3.3. Discover Object class
 
