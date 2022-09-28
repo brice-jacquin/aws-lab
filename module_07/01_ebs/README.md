@@ -19,7 +19,7 @@ The first step is to create 2 new instances. We have several requirements for th
   * The 2 instances must be in your 2 subnets 
   * We need the root volume to be a GP3 SSD volume (default IOPS and Throughput)
   * **One** of the 2 instances must have a ST1 HDD of the minimal size possible. 
-  * You will connect via SSM.  
+  * You will connect with **your private key** via Internet.  
 
 ![](../../ressources/assets/module07/module_07-EBS-1.png)
 
