@@ -17,9 +17,9 @@ Lab objective:
 
 The first step is to create 2 new instances. We have several requirements for these servers : 
   * The 2 instances must be in your 2 subnets 
-  * We need the root volume to be a GP3 SSD volume (default IOPS and Throughput)
-  * **One** of the 2 instances must have a ST1 HDD of the minimal size possible. 
-  * You will connect with **your private key** via Internet.  
+  * We need the root volume to be a GP2 SSD volume 
+  * **One** of the 2 instances must have a GP2 SSD of 30GB. 
+  * You will connect **via SSM** (use the role LabRole).  
 
 ![](../../ressources/assets/module07/module_07-EBS-1.png)
 
@@ -41,10 +41,10 @@ The first step is to create 2 new instances. We have several requirements for th
       * choose the default one
   * Storage Settings:
     * Click on **Advanced**
-    * Change the volume type for GP3 on the Volume 1
+    * Change the volume type for GP2 on the Volume 1
     * **For only 1 instance**:
       * Click on add volume
-      * In this new volume, change the volume type to ST1 and the size to 125
+      * In this new volume, change the volume type to GP2 and the size to 30
   * Open Advanced Details
     * Select the IAM instance profile for SSM. 
   * Launch instance and repeat for the 2nd instance. 
