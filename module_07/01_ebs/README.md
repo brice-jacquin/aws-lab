@@ -36,7 +36,7 @@ The first step is to create 2 new instances. We have several requirements for th
     * Click on edit
     * select your VPC
     * select a private subnet
-    * auto-assign public IP : disable
+    * auto-assign public IP : enable
     * select existing security group
       * choose the default one
   * Storage Settings:
