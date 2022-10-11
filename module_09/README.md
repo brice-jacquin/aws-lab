@@ -47,9 +47,9 @@ Check the DynamoDB table overview : items summary, metrics etc.
 * To view the Table detail go back to **View table details**
 </details>
 
-## Autoscaling Groups
+## 2. Autoscaling Groups
 
-### Launch Configuration
+### 2.1. Launch Configuration
 
 ![](../ressources/assets/module_09/module_09-ASG-1.png)
 
@@ -80,7 +80,7 @@ service httpd start
 
 </details>
 
-### AutoScaling group
+### 2.2. AutoScaling group
 
 ![](../ressources/assets/module_09/module_09-ASG-2.png)
 
@@ -103,14 +103,14 @@ Here you already have an application with auto deployment of instances. We could
 Now we need to redirect traffic accross all these instances, so we will use a **Load Balancer** for that.  
 
 
-### Target group 
+### 2.3. Target group 
 
 ![](../ressources/assets/module_09/module_09-ASG-3.png)
 
 Create a target group of type Instances and that targets HTTP1, port 80. The health-check path is "/"
 Do not add Targets at the moment.
 
-### LoadBalancer
+### 2.4. LoadBalancer
 
 ![](../ressources/assets/module_09/module_09-ASG-4.png)
 
@@ -138,7 +138,7 @@ If everything is OK you are able to view your website from "http://*alb_dns*"
 
 </details>
 
-### Modify the website
+### 2.5. Modify the website
 
 ![](../ressources/assets/module_09/module_09-ASG-6.png)
 
@@ -168,7 +168,7 @@ Set the **Default version** to this one for your Launch Template. Then roll-out 
 After a couple of minute (5-10min)
 The http://*alb_dns*/main.html should display a *new page* text. 
 
-### Cookie
+### 2.6. Cookie
 
 ![](../ressources/assets/module_09/module_09-ASG-7.png)
 
